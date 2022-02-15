@@ -1,0 +1,13 @@
+<div class="ms-5 mt-5 me-5">
+    <h1> Welcome <%= @user.user_name %> </h1>
+
+    <%= button_to 'Book Tour',  tours_path, method: :get %>
+    <br>
+    <%= button_to 'See Ticket',  tickets_path, method: :get %>
+    <br>
+
+    <br>
+    <div class="btn btn-dark">
+        <%= button_to 'Log Out',  logout_path, method: :post %>
+    </div>
+</div>

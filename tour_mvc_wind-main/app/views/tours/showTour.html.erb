@@ -1,0 +1,32 @@
+<%= render partial: "shared/navbar"%>
+<div class="text-center">
+      <% flash.each do |name, msg| %>
+          <%= content_tag :div, msg, class: 'alert alert-info' %>
+      <% end %>
+</div>
+
+<div class="ms-5 mt-5 me-5">
+    <h1> Tour </h1>
+    <table class="table table-striped">
+        <tr>
+            <th>Tour Code</th>
+            <th>From </th>
+            <th>To </th>
+            <th>Date</th>
+            <th>Price</th>
+        </tr>
+        <tr>
+            <td><%= @chosen_tour.tour_code %></td>
+            <td><%= @chosen_tour.from %></td>
+            <td><%= @chosen_tour.to %></td>
+            <td><%= @chosen_tour.date.strftime('%A, %d/%m/%Y') %></td>
+            <td><%= @chosen_tour.price %></td>
+        </tr>
+    </table>
+    <div class="container mb-3">
+            <div class="row row-cols-auto">
+                <%= button_to 'Book with Companion', tours_with_companion_path(param:@chosen_tour.id), class: "btn btn-primary" %>
+                <%= button_to 'Book without Companion', tours_without_companion_path(param:@chosen_tour.id), class: "btn btn-warning" %>
+            </div>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+<%= render partial: "shared/navbar"%>
+<div class="text-center">
+      <% flash.each do |name, msg| %>
+          <%= content_tag :div, msg, class: 'alert alert-info' %>
+      <% end %>
+</div>
+<div class="ms-5 mt-5 me-5">
+  <h1> My Tickets </h1>
+
+  <table class="table table-striped">
+    <tr>
+      <th>Ticket Code</th>
+      <th>From </th>
+      <th>To </th>
+      <th>Date </th>
+      <th>Tour Code</th>
+      <th>Companion User Name</th>
+      <th>Cancel</th>
+    </tr>
+
+  <% @tickets.each do |ticket| %>
+    <tr>
+      <td><%= ticket.id %></td>
+      <td><%= ticket.tour.from %></td>
+      <td><%= ticket.tour.to %></td>
+      <td><%= ticket.tour.date.strftime('%A, %d/%m/%Y') %></td>
+      <td><%= ticket.tour.tour_code %></td>
+      <td><%= ticket.companion_user_name %></td>
+      <td><%= button_to 'Cancel', cancel_path(param:ticket.id), class: "btn btn-danger" %></td>
+    </tr>
+  <% end %>
+  </table>
+</div>

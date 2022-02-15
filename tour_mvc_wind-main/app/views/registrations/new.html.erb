@@ -1,0 +1,38 @@
+<div class="ms-5 mt-5 me-5">
+
+    <h1>Sign Up</h1>
+    <div class="text-center">
+      <% flash.each do |name, msg| %>
+          <%= content_tag :div, msg, class: 'alert alert-info' %>
+      <% end %>
+    </div>
+    <%= form_with model: @user, url: sign_up_path do |form| %>
+        <div class="mb-3">
+            <%= form.label :user_name %>
+            <%= form.text_field :user_name, class: "form-control" %>
+        </div>
+        <div class="mb-3">
+            <%= form.label :gender %>
+            <%= form.select :gender, options_for_select(User.genders.map {|key, value| [key.titleize, User.genders.key(value)]}, @user.gender), class: "form-control" %>
+        </div>
+        <div class="mb-3">
+            <%= form.label :password %>
+            <%= form.password_field :password, class: "form-control" %>
+        </div>
+        <div class="mb-3">
+            <%= form.label :password_confirmation %>
+            <%= form.password_field :password_confirmation, class: "form-control" %>
+        </div>
+
+        <div class="container mb-3">
+            <div class="row row-cols-auto">
+                <%= form.submit "SignUp", class: "btn btn-primary" %>
+                <div class="mt-2" >
+                    <h6 class="fs-6 fw-light ms-2">Already a user?</h6>
+                </div>
+                <%= link_to '<button type="button" class="btn btn-dark">Sign In</button>'.html_safe, sign_in_path %>
+            </div>
+        </div>
+    <% end %>
+    
+</div>

@@ -1,0 +1,30 @@
+<%= render partial: "shared/navbar"%>
+<div class="text-center">
+      <% flash.each do |name, msg| %>
+          <%= content_tag :div, msg, class: 'alert alert-info' %>
+      <% end %>
+</div>
+<div class="ms-5 mt-5 me-5">
+    <h1> Tour List </h1>
+    <table class="table table-striped">
+    <tr>
+        <th>Tour Code</th>
+        <th>From </th>
+        <th>To </th>
+        <th>Date</th>
+        <th>Price</th>
+        <th>Status</th>
+    </tr>
+
+    <% @tours.each do |tour| %>
+        <tr>
+            <td><%= tour.tour_code %></td>
+            <td><%= tour.from %></td>
+            <td><%= tour.to %></td>
+            <td><%= tour.date.strftime('%A, %d/%m/%Y') %></td>
+            <td><%= tour.price %></td>
+            <td><%= @tickets.find_by(user_id: session[:user_id], tour_id: tour.id).present? ? "Already booked" : (link_to '<button type="button" class="btn btn-secondary">Book</button>'.html_safe, chosen_tour_path(param:tour)) %> </td>
+        </tr>
+    <% end %>
+    </table>
+</div>

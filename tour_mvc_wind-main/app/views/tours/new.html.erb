@@ -1,0 +1,56 @@
+<%= render partial: "shared/navbar"%>
+<div class="text-center">
+      <% flash.each do |name, msg| %>
+          <%= content_tag :div, msg, class: 'alert alert-info' %>
+      <% end %>
+</div>
+<div class="ms-5 mt-5 me-5">
+    <h2> Add a tour </h2>
+    <%= form_with url: add_tour_path do |form|%>
+        <div class="mb-3">
+            <%= form.label :tour_code %>
+            <%= form.text_field :tour_code, class: "form-control" %>
+        </div>
+        <div class="input-group mb-3">
+            <div class="col-md-5">
+                <%= form.label :from %>
+                <%= form.text_field :from, class: "form-control" %>
+            </div>
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-5">
+                <%= form.label :to %>
+                <%= form.text_field :to, class: "form-control" %>
+            </div>
+        </div>
+        <div class="input-group mb-3">
+            <div class="col-md-5">
+                <%= form.label :start_time %>
+                <%= form.time_field :start_time, class: "form-control" %>
+            </div>
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-5">
+                <%= form.label :end_time %>
+                <%= form.time_field :end_time, class: "form-control" %>
+            </div>
+        </div>
+        <div class="input-group mb-3">
+            <div class="col-md-5">
+                <%= form.label :passenger_limit %>
+                <%= form.number_field :passenger_limit, min: 1,  class: "form-control" %>
+            </div>
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-5">
+                <%= form.label :price %>
+                <%= form.number_field :price, min: 1, class: "form-control" %>
+            </div>
+        </div>
+        <div class="mb-3">
+            <%= form.label :date %>
+            <%= form.date_field :date, class: "form-control" %>
+        </div>
+        <%= form.submit "Add", class: "btn btn-primary" %>
+    <% end %>
+</div>

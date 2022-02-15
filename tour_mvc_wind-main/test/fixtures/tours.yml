@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tour_code: MyString
+  from: MyString
+  to: MyString
+  day: MyString
+  start_time: 2022-02-02 16:00:06
+  end_time: 2022-02-02 16:00:06
+  passenger_limit: 1
+  price: 1.5
+
+two:
+  tour_code: MyString
+  from: MyString
+  to: MyString
+  day: MyString
+  start_time: 2022-02-02 16:00:06
+  end_time: 2022-02-02 16:00:06
+  passenger_limit: 1
+  price: 1.5

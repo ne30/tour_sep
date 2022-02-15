@@ -1,0 +1,28 @@
+<%= render partial: "shared/navbar" %>
+<div class="ms-5 mt-5 me-5">
+  <h1> All Tickets </h1>
+
+  <table class="table table-striped">
+    <tr>
+      <th>Ticket Code</th>
+      <th>From </th>
+      <th>To </th>
+      <th>Tour Code</th>
+      <th>User Name </th>
+      <th>Gender</th>
+      <th>Companion User Name</th>
+    </tr>
+
+  <% @all_tickets.each do |ticket| %>
+    <tr>
+      <td><%= ticket.id %></td>
+      <td><%= ticket.tour.from %></td>
+      <td><%= ticket.tour.to %></td>
+      <td><%= ticket.tour.tour_code %></td>
+      <td><%= ticket.user.user_name%></td>
+      <td><%= ticket.user.gender.eql?("m") ? "Male": "Female" %></td>
+      <td><%= ticket.companion_user_name %></td>
+      </tr>
+  <% end %>
+  </table>
+</div>

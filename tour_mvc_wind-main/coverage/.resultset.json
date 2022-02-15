@@ -1,0 +1,30 @@
+{
+  "RSpec": {
+    "coverage": {
+      "C:/Users/Neeraj Singh/Desktop/tour/tour_mvc1-main/app/models/tour.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null
+        ]
+      },
+      "C:/Users/Neeraj Singh/Desktop/tour/tour_mvc1-main/app/models/application_record.rb": {
+        "lines": [
+          1,
+          1,
+          null
+        ]
+      }
+    },
+    "timestamp": 1644383496
+  }
+}
