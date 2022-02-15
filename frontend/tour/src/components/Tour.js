@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import { Component } from 'react';
-import { Nav } from 'react-bootstrap';
+import { Nav, Table } from 'react-bootstrap';
 import { Route, Switch } from 'react-router-dom';
 import Ticket from './Ticket';
 
@@ -63,17 +63,27 @@ export default class Tour extends Component{
             </div>
         }
         return (
-            <div className='Tour'>                
-                <h1>{this.props.user_name}</h1>
-                <div>         
+            <div className='Tour'>  
+            <Table striped bordered hover>
+                <thead>
+                    <tr>
+                    <th>Tour Code</th>
+                    <th>From</th>
+                    <th>To</th>
+                    </tr>
+                </thead>        
+                <tbody>
+                    <tr>
                     {
                         all_tours.map((tour) =>(
-                            <ol key = { tour.id } >
+                            <td key = { tour.id } >
                             Tour_code : { tour.attributes.tour_code }
-                        </ol>
+                        </td>
                         ))
                     }
-                </div>  
+                    </tr>
+                </tbody>
+            </Table>
             </div>
         );
     }

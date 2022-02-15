@@ -52,7 +52,6 @@ export default class Ticket extends Component{
         }
         return (
             <div className='Ticket'>
-                <h1>{this.props.user_name}</h1>
                 {
                     user_tickets.map((ticket) =>(
                         <ol key = { ticket.id } >
