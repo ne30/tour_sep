@@ -1,3 +1,4 @@
+import axios from "axios";
 import { Component } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import Ticket from "./Ticket";
@@ -10,6 +11,16 @@ export default class Main extends Component{
         this.state = {
             curr: false
         }
+    }
+
+    handleLogoutClick(){
+        axios.delete("http://127.0.0.1:3001/logout", {withCredentials: true}).then(response => {
+          this.props.handleLogout();
+        })
+        .catch(error => {
+          console.log("logout error", error);
+        });
+        sessionStorage.clear();
     }
 
     render(){
@@ -26,13 +37,21 @@ export default class Main extends Component{
                             <Navbar.Text>
                                 Welcome {this.props.location.state.user_name}
                             </Navbar.Text>
+                            <Nav.Link href="login" onClick={this.handleLogoutClick}>Logout</Nav.Link>
                         </Navbar.Collapse>
                     </Container>
                 </Navbar>
                 <br/>
-                <div>
+                <div class="table-div">
                     { this.state.curr ? <Tour user_name = {this.props.location.state.user_name}/> : <Ticket user_name = {this.props.location.state.user_name}/>}
                 </div>
+                <style>
+                    {"\
+                    .table-div{\
+                    margin:28px;\
+                    }\
+                    "}
+                </style>
             </div>
         )
     }

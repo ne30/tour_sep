@@ -43,7 +43,7 @@ class ToursController <  ApplicationController
 
     def bookTicketWithoutCompanion
         tour = Tour.find(params[:param])
-        user = User.find(session[:user_id])
+        user = User.find_by(user_name: params[:user_name])
         if tour.passenger_limit == 0
             flash[:error] = "Tour is completely booked!"
             redirect_to tours_path
@@ -62,7 +62,7 @@ class ToursController <  ApplicationController
 
     def bookTicketWithCompanion
         tour = Tour.find(params[:param])
-        user = User.find(session[:user_id])
+        user = User.find_by(user_name: params[:user_name])
         
         if tour.passenger_limit == 0
             flash[:error] = "Tour is completely booked!"

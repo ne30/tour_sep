@@ -49,10 +49,14 @@ export default class Tour extends Component{
     // }
 
     handleUserTicket(){
-        // console.log(this.props.location.state);
         this.props.history.push({
             pathname: '/my_tickets'
         });
+    }
+
+    getDayOfWeek(date) {
+        const dayOfWeek = new Date(date).getDay();    
+        return isNaN(dayOfWeek) ? null : ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'][dayOfWeek];
     }
 
     render(){
@@ -70,18 +74,33 @@ export default class Tour extends Component{
                     <th>Tour Code</th>
                     <th>From</th>
                     <th>To</th>
+                    <th>Day & Date</th>
+                    <th>Price</th>
+                    <th></th>
                     </tr>
                 </thead>        
                 <tbody>
-                    <tr>
                     {
                         all_tours.map((tour) =>(
-                            <td key = { tour.id } >
-                            Tour_code : { tour.attributes.tour_code }
-                        </td>
+                        <tr>
+                            <td>
+                                { tour.attributes.tour_code }
+                            </td>
+                            <td>
+                                { tour.attributes.from }
+                            </td>
+                            <td>
+                                { tour.attributes.to }
+                            </td>
+                            <td>
+                                { this.getDayOfWeek(tour.attributes.date) }, { tour.attributes.date }
+                            </td>
+                            <td>
+                                { tour.attributes.price }
+                            </td>
+                        </tr>
                         ))
                     }
-                    </tr>
                 </tbody>
             </Table>
             </div>

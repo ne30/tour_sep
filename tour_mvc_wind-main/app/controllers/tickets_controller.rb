@@ -14,7 +14,6 @@ class TicketsController < ApplicationController
     end
 
     def showUserTickets 
-        puts(params)
         user = User.find_by(user_name: params[:user_name])
         user_tickets = user.tickets
         render json: TicketSerializer.new(user_tickets).serialized_json

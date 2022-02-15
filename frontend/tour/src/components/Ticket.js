@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import { Component } from 'react';
+import { Table } from 'react-bootstrap';
 
 export default class Ticket extends Component{
     
@@ -43,6 +44,11 @@ export default class Ticket extends Component{
     //     };
     // }
 
+    getDayOfWeek(date) {
+        const dayOfWeek = new Date(date).getDay();    
+        return isNaN(dayOfWeek) ? null : ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'][dayOfWeek];
+    }
+
     render(){
         const{data_loaded, user_tickets} = this.state;
         if (!data_loaded) {
@@ -52,13 +58,45 @@ export default class Ticket extends Component{
         }
         return (
             <div className='Ticket'>
-                {
-                    user_tickets.map((ticket) =>(
-                        <ol key = { ticket.id } >
-                        Ticket : { ticket.attributes.tour.tour_code }
-                        </ol>
-                    ))
-                }
+                <Table striped bordered hover>
+                    <thead>
+                        <tr>
+                            <th>Ticket Code</th>
+                            <th>Tour Code</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Day & Date</th>
+                            <th>Companion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            user_tickets.map((ticket) =>(
+                                <tr>
+                                    <td>
+                                        { ticket.id }
+                                    </td>
+                                    <td>
+                                        { ticket.attributes.tour.tour_code }
+                                    </td>
+                                    <td>
+                                        { ticket.attributes.tour.from }
+                                    </td>
+                                    <td>
+                                        { ticket.attributes.tour.to }
+                                    </td>
+                                    <td>
+                                        { this.getDayOfWeek(ticket.attributes.tour.date) }, { ticket.attributes.tour.date }
+                                    </td>
+                                    <td>
+                                        { ticket.attributes.companion_user_name ? ticket.attributes.companion_user_name : "-" }
+                                    </td>
+                                </tr>
+                            ))
+                        }
+                    </tbody>
+                    
+                </Table>
             </div>
         );
     }
