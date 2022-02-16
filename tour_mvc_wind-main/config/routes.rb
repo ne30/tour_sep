@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   # get "sign_in", to: "login#new"
   # post "sign_in", to: "login#create"
   post "logout", to: "login#logout"
+  get "is_admin", to: "login#is_admin"
 
   get "add_tour", to: "tours#new"
   get "tours", to: "tours#showAllTour"

@@ -27,6 +27,19 @@ class LoginController < ApplicationController
         end
     end
 
+    def is_admin
+        user = User.find_by(user_name: params[:user_name])
+        if user.present? && user.is_admin
+            render json:{
+                is_admin: true
+            }
+        else
+            render json:{
+                is_admin: false
+            }
+        end
+    end
+
     def logged_in
         if @current_user
             render json: {
