@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Component } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
+import AddTour from "./AddTour";
 import AllTicket from "./AllTicket";
 import Ticket from "./Ticket";
 import Tour from "./Tour";
@@ -55,7 +56,7 @@ export default class Main extends Component{
                             <Nav.Link onClick={()=>this.setState({curr:1})}>Book Tour</Nav.Link>
                             <Nav.Link onClick={()=>this.setState({curr:0})}>My Tickets</Nav.Link>
                             { this.state.is_admin ? <Nav.Link onClick={()=>this.setState({curr:3})}> All Tickets </Nav.Link> : null }
-                            { this.state.is_admin ? <Nav.Link> Add Tour </Nav.Link> : null }
+                            { this.state.is_admin ? <Nav.Link onClick={()=>this.setState({curr:4})}> Add Tour </Nav.Link> : null }
                         </Nav>
                         <Navbar.Collapse className="justify-content-end">
                             <Navbar.Text>
@@ -67,7 +68,7 @@ export default class Main extends Component{
                 </Navbar>
                 <br/>
                 <div class="table-div">
-                    { this.state.curr===1 ? <Tour user_name = {this.props.location.state.user_name}/> : (this.state.curr===0 ? <Ticket user_name = {this.props.location.state.user_name} /> : <AllTicket/>) }
+                    { this.state.curr===1 ? <Tour user_name = {this.props.location.state.user_name}/> : (this.state.curr===0 ? <Ticket user_name = {this.props.location.state.user_name} /> : this.state.curr===3 ? <AllTicket/> : <AddTour/>) }
                 </div>
                 <style>
                     {"\

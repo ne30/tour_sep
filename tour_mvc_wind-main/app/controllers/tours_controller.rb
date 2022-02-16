@@ -20,11 +20,19 @@ class ToursController <  ApplicationController
     def create
         @new_tour = Tour.new(tourParams)
         if @new_tour.save
-            flash[:success] = "Successfully added tour " + @new_tour.tour_code.to_s
-            redirect_to tours_path
+            render json: {
+                status: :added_tour,
+                tour_added: true
+            }
+            # flash[:success] = "Successfully added tour " + @new_tour.tour_code.to_s
+            # redirect_to tours_path
         else
-            flash[:error] = "Something went wrong while adding the tour."
-            redirect_to add_tour_path
+            # flash[:error] = "Something went wrong while adding the tour."
+            # redirect_to add_tour_path
+            render json: { 
+                status: :something_went_wrong,
+                tour_added: false
+            }
         end
     end
 
