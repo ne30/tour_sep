@@ -41,13 +41,7 @@ export default class Home extends Component {
     return (
       <div>
         <h1>Home</h1>
-        {/* <h1>Status: {this.props.logged_in_status}</h1> */}
-        {/* <button onClick={() => this.handleLogoutClick()}>Logout</button> */}
         <Registration handleSuccessfullRegister={this.handleSuccessfullRegister}/>
-        {/* <form>
-            <Button variant="btn btn-success" onClick={() => this.props.history.push('/tour')}>Login</Button>
-        </form> */}
-        {/* <Login handleSuccessfulAuth={this.handleSuccessfulAuth} user={this.state.user}/> */}
       </div>
     );
   }

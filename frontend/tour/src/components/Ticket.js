@@ -48,6 +48,7 @@ export default class Ticket extends Component{
                     alert("Successfully cancelled the ticket!");
                 }
                 else{
+                    //TODO
                     alert("Something went wrong!");
                 }
                 // window.location.reload();

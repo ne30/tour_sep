@@ -44,7 +44,13 @@ class ToursController <  ApplicationController
     def bookTicketWithoutCompanion
         tour = Tour.find(params[:param])
         user = User.find_by(user_name: params[:user_name])
-        if tour.passenger_limit == 0
+
+        if Ticket.find_by(user_id: user.id, tour_id: tour.id).present?
+            render json: {
+                status: :already_booked,
+                ticket_created: false
+            }
+        elsif tour.passenger_limit == 0
             flash[:error] = "Tour is completely booked!"
             render json: {
                 status: :completely_booked,
@@ -70,9 +76,14 @@ class ToursController <  ApplicationController
     def bookTicketWithCompanion
         tour = Tour.find(params[:param])
         user = User.find_by(user_name: params[:user_name])
-        
-        if tour.passenger_limit == 0
-            flash[:error] = "Tour is completely booked!"
+
+        if Ticket.find_by(user_id: user.id, tour_id: tour.id).present?
+            render json: {
+                status: :already_booked,
+                ticket_created: false
+            }
+        elsif tour.passenger_limit == 0
+            # flash[:error] = "Tour is completely booked!"
             render json: {
                 status: :completely_booked,
                 ticket_created: false

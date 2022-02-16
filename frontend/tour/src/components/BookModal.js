@@ -1,8 +1,11 @@
+import axios from "axios";
 import { Component } from "react";
 import { Button, Table } from "react-bootstrap";
 import Modal from "react-modal/lib/components/Modal";
 
 export default class BookModal extends Component{
+
+    _isMounted = false;
 
     constructor(props) {
         super(props);
@@ -10,10 +13,56 @@ export default class BookModal extends Component{
             data_loaded: false,
             openModal: false
         };
+
+        this.bookTicketWithCompanion = this.bookTicketWithCompanion.bind(this);
+        this.bookTicketWithoutCompanion = this.bookTicketWithoutCompanion.bind(this);
+    }
+
+    bookTicketWithCompanion(){
+        console.log("Without companion");
+        const tour_book_url = "http://127.0.0.1:3001/tours_with_companion";
+        axios.post(tour_book_url, {
+            param: this.props.tour.id,
+            user_name: this.props.user_name
+        },{
+            withCredentials: true
+        }).then(
+            response => {
+                this.setState({openModal: false});
+                console.log(response.data);
+                if(response.data.ticket_created){
+                    alert("Successfully booked the tour!");
+                }
+                else{
+                    alert(response.data.status);
+                }
+            }
+        )
+    }
+
+    bookTicketWithoutCompanion(){
+        console.log("Without companion");
+        const tour_book_url = "http://127.0.0.1:3001/tours_without_companion";
+        axios.post(tour_book_url, {
+            param: this.props.tour.id,
+            user_name: this.props.user_name
+        },{
+            withCredentials: true
+        }).then(
+            response => {
+                this.setState({openModal: false});
+                console.log(response.data);
+                if(response.data.ticket_created){
+                    alert("Successfully booked the tour!");
+                }
+                else{
+                    alert(response.data.status);
+                }
+            }
+        )
     }
 
     onClickButton = e =>{
-        console.log("modal button")
         e.preventDefault()
         this.setState({openModal: true})
     }
@@ -31,7 +80,7 @@ export default class BookModal extends Component{
         return(
             <div>
                 <Button variant="outline-info" onClick={this.onClickButton}>Book</Button>
-                <Modal isOpen={this.state.openModal}>
+                <Modal isOpen={this.state.openModal} ariaHideApp={false}>
                     <div>
                         <Table striped bordered hover>
                             <thead>
@@ -63,7 +112,13 @@ export default class BookModal extends Component{
                                 </tr>
                             </tbody>
                         </Table>
-                        <Button variant="outline-danger" onClick={this.onCloseModal}>Close</Button>
+                        <div>
+                            <Button variant="outline-primary" onClick={() => this.bookTicketWithCompanion()}>Book With Compnaion</Button>
+                            <Button variant="outline-danger" onClick={() => this.bookTicketWithoutCompanion()}>Book Without Compnaion</Button>
+                        </div>
+                        <div className="justify-content-end" >
+                            <Button variant="outline-danger" onClick={this.onCloseModal}>Close</Button>
+                        </div>
                     </div>
                 </Modal>
             </div>

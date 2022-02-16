@@ -23,7 +23,7 @@ export default class Tour extends Component{
     }
 
     getAllTours(){
-        console.log(this.props.user_name);
+        // console.log(this.props.user_name);
         axios.get("http://localhost:3001/tours/", {withCredentials: true})
         .then((response) => {
             // console.log(this.props.location.state);
@@ -62,17 +62,6 @@ export default class Tour extends Component{
         const dayOfWeek = new Date(date).getDay();    
         return isNaN(dayOfWeek) ? null : ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'][dayOfWeek];
     }
-
-    onClickButton = e =>{
-        console.log("modal button")
-        e.preventDefault()
-        this.setState({openModal: true})
-    }
-
-    onCloseModal = ()=>{
-        this.setState({openModal: false})
-    }
-
 
     render(){
         const{data_loaded, all_tours} = this.state;
@@ -114,7 +103,7 @@ export default class Tour extends Component{
                                 { tour.attributes.price }
                             </td>
                             <td>
-                                <BookModal tour = {tour} />                                
+                                <BookModal tour = {tour} user_name = {this.props.user_name} />                                
                             </td>
                         </tr>
                         ))
