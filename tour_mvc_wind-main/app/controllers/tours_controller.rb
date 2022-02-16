@@ -46,7 +46,10 @@ class ToursController <  ApplicationController
         user = User.find_by(user_name: params[:user_name])
         if tour.passenger_limit == 0
             flash[:error] = "Tour is completely booked!"
-            redirect_to tours_path
+            render json: {
+                status: :completely_booked,
+                ticket_created: false
+            }
         else
             new_ticket = Ticket.new
             new_ticket.user_id = user.id
@@ -56,7 +59,11 @@ class ToursController <  ApplicationController
             flash[:success] = "Successfully Booked Ticket for " + tour.tour_code.to_s
             tour.passenger_limit = tour.passenger_limit - 1
             tour.save
-            redirect_to tours_path
+            render json: {
+                status: :created,
+                ticket_created: true
+            }
+            # redirect_to tours_path
         end
     end
 
@@ -66,7 +73,10 @@ class ToursController <  ApplicationController
         
         if tour.passenger_limit == 0
             flash[:error] = "Tour is completely booked!"
-            redirect_to tours_path
+            render json: {
+                status: :completely_booked,
+                ticket_created: false
+            }
         else
             new_ticket = Ticket.new
             new_ticket.user_id = user.id
@@ -96,7 +106,10 @@ class ToursController <  ApplicationController
             flash[:success] = "Successfully Booked Ticket for " + tour.tour_code.to_s
             tour.passenger_limit = tour.passenger_limit - 1
             tour.save
-            redirect_to tours_path
+            render json: {
+                status: :created,
+                ticket_created: true
+            }
         end
     end
 

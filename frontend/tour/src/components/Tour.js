@@ -2,7 +2,9 @@ import axios from 'axios';
 import React from 'react';
 import { Component } from 'react';
 import { Button, Collapse, Nav, Table } from 'react-bootstrap';
+import Modal from 'react-modal';
 import { Route, Switch } from 'react-router-dom';
+import BookModal from './BookModal';
 import Ticket from './Ticket';
 
 export default class Tour extends Component{
@@ -16,7 +18,7 @@ export default class Tour extends Component{
             user: {},
             all_tours: {},
             data_loaded: false,
-            book_expand_status: {}
+            openModal: false
         };
     }
 
@@ -31,10 +33,10 @@ export default class Tour extends Component{
             }
             );
 
-        })
-        .catch(error => {
-            console.error('Error ', error);
         });
+        // .catch(error => {
+        //     console.error('Error ', error);
+        // });
     }
 
     componentDidMount(){
@@ -56,26 +58,21 @@ export default class Tour extends Component{
         });
     }
 
-    expandBookButton(){
-        const temp_hash = {};
-        this.state.all_tours.map((tour, index) => {
-            temp_hash[tour.tour_code] = false;
-        })
-        console.log(temp_hash);
-        return temp_hash;
-    }
-
-    handleBookExpansion(tour_code){
-        this.setState({
-            book_expand_status[tour_code]: !book_expand_status[tour_code]
-        });
-        console.log(this.state.book_expand_status);
-    }
-
     getDayOfWeek(date) {
         const dayOfWeek = new Date(date).getDay();    
         return isNaN(dayOfWeek) ? null : ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'][dayOfWeek];
     }
+
+    onClickButton = e =>{
+        console.log("modal button")
+        e.preventDefault()
+        this.setState({openModal: true})
+    }
+
+    onCloseModal = ()=>{
+        this.setState({openModal: false})
+    }
+
 
     render(){
         const{data_loaded, all_tours} = this.state;
@@ -84,24 +81,23 @@ export default class Tour extends Component{
                 <h1>Loading...</h1>
             </div>
         }
-        this.state.book_expand_status = this.expandBookButton();
         return (
             <div className='Tour'>  
             <Table striped bordered hover>
                 <thead>
                     <tr>
-                    <th>Tour Code</th>
-                    <th>From</th>
-                    <th>To</th>
-                    <th>Day & Date</th>
-                    <th>Price</th>
-                    <th>Book</th>
+                        <th>Tour Code</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Day & Date</th>
+                        <th>Price</th>
+                        <th>Book</th>
                     </tr>
                 </thead>        
                 <tbody>
                     {
                         all_tours.map((tour) =>(
-                        <tr>
+                        <tr key={tour.id}>
                             <td>
                                 { tour.attributes.tour_code }
                             </td>
@@ -118,12 +114,7 @@ export default class Tour extends Component{
                                 { tour.attributes.price }
                             </td>
                             <td>
-                                <Button onClick={this.handleBookExpansion(tour.attributes.tour_code)}>Book</Button>
-                                <Collapse in={this.state.book_expand_status[tour.attributes.tour_code]}>
-                                    <div id="example-collapse-text">
-                                    Anim
-                                    </div>
-                                </Collapse>
+                                <BookModal tour = {tour} />                                
                             </td>
                         </tr>
                         ))
