@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import { Component } from 'react';
-import { Nav, Table } from 'react-bootstrap';
+import { Button, Collapse, Nav, Table } from 'react-bootstrap';
 import { Route, Switch } from 'react-router-dom';
 import Ticket from './Ticket';
 
@@ -15,7 +15,8 @@ export default class Tour extends Component{
             user_temp: this.props.user_name.user_name,
             user: {},
             all_tours: {},
-            data_loaded: false
+            data_loaded: false,
+            book_expand_status: {}
         };
     }
 
@@ -39,6 +40,7 @@ export default class Tour extends Component{
     componentDidMount(){
         this._isMounted = true;
         this.getAllTours();
+        
     }
 
     // componentWillUnmount() {
@@ -54,6 +56,22 @@ export default class Tour extends Component{
         });
     }
 
+    expandBookButton(){
+        const temp_hash = {};
+        this.state.all_tours.map((tour, index) => {
+            temp_hash[tour.tour_code] = false;
+        })
+        console.log(temp_hash);
+        return temp_hash;
+    }
+
+    handleBookExpansion(tour_code){
+        this.setState({
+            book_expand_status[tour_code]: !book_expand_status[tour_code]
+        });
+        console.log(this.state.book_expand_status);
+    }
+
     getDayOfWeek(date) {
         const dayOfWeek = new Date(date).getDay();    
         return isNaN(dayOfWeek) ? null : ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'][dayOfWeek];
@@ -66,6 +84,7 @@ export default class Tour extends Component{
                 <h1>Loading...</h1>
             </div>
         }
+        this.state.book_expand_status = this.expandBookButton();
         return (
             <div className='Tour'>  
             <Table striped bordered hover>
@@ -76,7 +95,7 @@ export default class Tour extends Component{
                     <th>To</th>
                     <th>Day & Date</th>
                     <th>Price</th>
-                    <th></th>
+                    <th>Book</th>
                     </tr>
                 </thead>        
                 <tbody>
@@ -97,6 +116,14 @@ export default class Tour extends Component{
                             </td>
                             <td>
                                 { tour.attributes.price }
+                            </td>
+                            <td>
+                                <Button onClick={this.handleBookExpansion(tour.attributes.tour_code)}>Book</Button>
+                                <Collapse in={this.state.book_expand_status[tour.attributes.tour_code]}>
+                                    <div id="example-collapse-text">
+                                    Anim
+                                    </div>
+                                </Collapse>
                             </td>
                         </tr>
                         ))

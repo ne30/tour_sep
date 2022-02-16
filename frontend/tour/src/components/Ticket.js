@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import { Component } from 'react';
-import { Table } from 'react-bootstrap';
+import { Table, Button } from 'react-bootstrap';
 
 export default class Ticket extends Component{
     
@@ -13,6 +13,8 @@ export default class Ticket extends Component{
             user_tickets: {},
             data_loaded: false
         };
+
+        this.cancelUserTicket = this.cancelUserTicket.bind(this);
     }
 
     getUserTickets(){
@@ -30,6 +32,27 @@ export default class Ticket extends Component{
         .catch(error => {
             console.error('Error ', error);
         });
+    }
+
+    cancelUserTicket(ticket_id){
+        // console.log(t);
+        axios.post("http://127.0.0.1:3001/cancel",{
+            param: ticket_id
+        },
+        {withCredentials: true})
+        .then(
+            response => {
+                this.getUserTickets();
+                console.log(response.data.ticket_deleted);
+                if (response.data.ticket_deleted){
+                    alert("Successfully cancelled the ticket!");
+                }
+                else{
+                    alert("Something went wrong!");
+                }
+                // window.location.reload();
+            }
+        );
     }
 
     componentDidMount(){
@@ -51,6 +74,7 @@ export default class Ticket extends Component{
 
     render(){
         const{data_loaded, user_tickets} = this.state;
+        
         if (!data_loaded) {
             return <div>
                 <h1>Loading...</h1>
@@ -67,6 +91,7 @@ export default class Ticket extends Component{
                             <th>To</th>
                             <th>Day & Date</th>
                             <th>Companion</th>
+                            <th>Cancel</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -90,6 +115,9 @@ export default class Ticket extends Component{
                                     </td>
                                     <td>
                                         { ticket.attributes.companion_user_name ? ticket.attributes.companion_user_name : "-" }
+                                    </td>
+                                    <td>
+                                        <Button variant="outline-danger" onClick={() => this.cancelUserTicket(ticket.id)}>Cancel</Button>
                                     </td>
                                 </tr>
                             ))
