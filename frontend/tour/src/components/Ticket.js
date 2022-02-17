@@ -115,7 +115,7 @@ export default class Ticket extends Component{
                                         { this.getDayOfWeek(ticket.attributes.tour.date) }, { ticket.attributes.tour.date }
                                     </td>
                                     <td>
-                                        { ticket.attributes.companion_user_name ? ticket.attributes.companion_user_name : "-" }
+                                        { ticket.attributes.companion_user_name===null ? "-" : ticket.attributes.companion_user_name }
                                     </td>
                                     <td>
                                         <Button variant="outline-danger" onClick={() => this.cancelUserTicket(ticket.id)}>Cancel</Button>

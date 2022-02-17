@@ -19,7 +19,7 @@ export default class BookModal extends Component{
     }
 
     bookTicketWithCompanion(){
-        console.log("Without companion");
+        console.log("With companion");
         const tour_book_url = "http://127.0.0.1:3001/tours_with_companion";
         axios.post(tour_book_url, {
             param: this.props.tour.id,

@@ -1,9 +1,6 @@
 class LoginController < ApplicationController
     before_action :set_current_user
-    # include CurrentUserConcern
-
-    # def new
-    # end
+    
     def set_current_user
         if session[:user_id].present?
             puts session[:user_id].to_s + " here"
@@ -19,11 +16,9 @@ class LoginController < ApplicationController
                 status: :created,
                 logged_in: true,
                 user: user
-            }
+            }, status: 200
         else
-            render json: { status: 401 }
-            # flash[:error] = "Invalid user name or password"
-            # redirect_to sign_in_path
+            render json: { status: :not_logged_in }, status: 401
         end
     end
 
@@ -45,11 +40,11 @@ class LoginController < ApplicationController
             render json: {
                 logged_in: true,
                 user: @current_user
-            }
+            }, status: 200
         else
             render json: {
                 logged_in: false
-            }
+            }, status: 401
         end
     end
 
@@ -59,8 +54,6 @@ class LoginController < ApplicationController
         render json: {
             status: 200,
             logged_out: true
-        }
-        # session[:user_id] = nil
-        # redirect_to sign_up_path, notice: "Logged Out"
+        }, status: 200
     end
 end

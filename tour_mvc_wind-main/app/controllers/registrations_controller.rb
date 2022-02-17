@@ -1,22 +1,15 @@
 class RegistrationsController < ApplicationController
-    # def new
-    #     @user = User.new
-    # end
-
     def create
-        user = User.create!(userParams)
-        if user
+        user = User.new(userParams)
+        if user.valid?
+            user.save
             session[:user_id] = user.id
             render json: {
                 status: :created,
                 user: user
-            }
-            # flash[:success] = "Successfully created account"
-            # redirect_to sign_in_path
+            }, status: 200
         else
-            render json: { status: 500 }
-            # flash[:error] = "Something went wrong"
-            # redirect_to sign_up_path
+            render json: { status: :something_went_wrong }, status: 500
         end
     end
 
