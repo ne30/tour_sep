@@ -29,37 +29,89 @@ RSpec.describe ToursController, type: :controller do
         end
     end
 
-    # describe "#bookTicketWithoutCompanion" do 
-    #     it "Successful ticket booking without companion" do
-    #         allow_any_instance_of(ToursController).to receive(:checkUser).and_return(:true)
-    #         get(:bookTicketWithoutCompanion, params: {:param => 1}, session: {:user_id => 1})
-    #         expect(flash[:success]).to be_present
-    #     end
+    describe "#bookTicketWithoutCompanion" do 
+        it "It should not book ticket for invalid tour" do
+            post(:bookTicketWithoutCompanion, params: {:param => -11, :user_name => "neer"})
+            expect(response).to have_http_status(404)
+        end
 
-    #     it "All ticket for the tour has already booked." do
-    #         allow_any_instance_of(ToursController).to receive(:checkUser).and_return(:true)
-    #         get(:bookTicketWithoutCompanion, params: {:param => 2}, session: {:user_id => 1})
-    #         expect(flash[:error]).to be_present
-    #     end
-    # end
+        it "It should not create another ticket for the same user and tour (no double ticket)." do
+            post(:bookTicketWithoutCompanion, params: {:param => 1, :user_name => "neer"})
+            json = JSON.parse(response.body).deep_symbolize_keys
+            expect(json).to eq({
+                status: "already_booked",
+                ticket_created: false
+            })
+            expect(response).to have_http_status(200)
+        end
 
-    # describe "#bookTicketWithCompanion" do 
-    #     it "Successful ticket booking with user being the first companion" do
-    #         allow_any_instance_of(ToursController).to receive(:checkUser).and_return(:true)
-    #         get(:bookTicketWithCompanion, params: {:param => "4"}, session: {:user_id => 1})
-    #         expect(flash[:success]).to be_present
-    #     end
+        it "All ticket for the tour has completely booked." do
+            post(:bookTicketWithoutCompanion, params: {:param => 2, :user_name => "neeraj"})
+            json = JSON.parse(response.body).deep_symbolize_keys
+            expect(json).to eq({
+                status: "completely_booked",
+                ticket_created: false
+            })
+            expect(response).to have_http_status(200)
+        end
 
-    #     it "Successful ticket booking with user being the second companion" do
-    #         allow_any_instance_of(ToursController).to receive(:checkUser).and_return(:true)
-    #         get(:bookTicketWithCompanion, params: {:param => "1"}, session: {:user_id => 2})
-    #         expect(flash[:success]).to be_present
-    #     end
+        it "It should successfully book the ticket without companion" do
+            post(:bookTicketWithoutCompanion, params: {:param => 3, :user_name => "neeraj"})
+            json = JSON.parse(response.body).deep_symbolize_keys
+            expect(json).to eq({
+                status: "created",
+                ticket_created: true
+            })
+            expect(response).to have_http_status(200)
+        end
 
-    #     it "All ticket for the tour has already booked." do
-    #         allow_any_instance_of(ToursController).to receive(:checkUser).and_return(:true)
-    #         get(:bookTicketWithCompanion, params: {:param => "2"}, session: {:user_id => 1})
-    #         expect(flash[:error]).to be_present
-    #     end
-    # end
+    end
+
+    describe "#bookTicketWithCompanion" do 
+
+        it "It should not book ticket for invalid tour" do
+            post(:bookTicketWithCompanion, params: {:param => -11, :user_name => "neer"})
+            expect(response).to have_http_status(404)
+        end
+
+        it "It should not create another ticket for the same user and tour (no double ticket)." do
+            post(:bookTicketWithCompanion, params: {:param => 1, :user_name => "neer"})
+            json = JSON.parse(response.body).deep_symbolize_keys
+            expect(json).to eq({
+                status: "already_booked",
+                ticket_created: false
+            })
+            expect(response).to have_http_status(200)
+        end
+
+        it "All ticket for the tour has completely booked." do
+            post(:bookTicketWithCompanion, params: {:param => "2", :user_name => "neeraj"})
+            json = JSON.parse(response.body).deep_symbolize_keys
+            expect(json).to eq({
+                status: "completely_booked",
+                ticket_created: false
+            })
+            expect(response).to have_http_status(200)
+        end
+
+        it "Successful ticket booking with user being the first companion" do
+            post(:bookTicketWithCompanion, params: {:param => "4", :user_name => "admin"})
+            json = JSON.parse(response.body).deep_symbolize_keys
+            expect(json).to eq({
+                status: "created",
+                ticket_created: true
+            })
+            expect(response).to have_http_status(200)
+        end
+
+        it "Successful ticket booking with user being the second companion" do
+            post(:bookTicketWithCompanion, params: {:param => "1", :user_name => "neeraj"})
+            json = JSON.parse(response.body).deep_symbolize_keys
+            expect(json).to eq({
+                status: "created",
+                ticket_created: true
+            })
+            expect(response).to have_http_status(200)
+        end
+    end
 end

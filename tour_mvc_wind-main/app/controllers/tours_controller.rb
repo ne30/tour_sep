@@ -1,5 +1,4 @@
 class ToursController <  ApplicationController
-    protect_from_forgery with: :null_session
     def create
         new_tour = Tour.new(tourParams)
         if new_tour.valid?
