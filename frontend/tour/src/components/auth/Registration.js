@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Button, Form } from 'react-bootstrap';
 
 export default class Registration extends Component {
 
@@ -50,7 +51,7 @@ export default class Registration extends Component {
     render() {
         return (
             <div>
-                <form onSubmit={this.handleSubmit}>
+                {/* <form onSubmit={this.handleSubmit}>
                     <input type="text" name="user_name" placeholder="User Name" value={this.state.user_name} onChange={this.handleChange} required />
 
                     <strong>Gender</strong>
@@ -78,7 +79,60 @@ export default class Registration extends Component {
                     <input type="password" name="password_confirmation" placeholder="Password Confirmation" value={this.state.password_confirmation} onChange={this.handleChange} required />
 
                     <button type='submit'>Register</button>
-                </form>
+                </form> */}
+                <div class="login-form">  
+                    <h1>Sign Up</h1>
+                        <br/>
+                        <Form onSubmit={this.handleSubmit}>
+                            <Form.Group className="mb-3">
+                                <Form.Label>User Name</Form.Label>
+                                <Form.Control type="text"name="user_name" placeholder="User Name" value={this.state.user_name} onChange={this.handleChange} required />
+                            </Form.Group>
+
+                            <Form.Group>
+                                <Form.Label>Gender</Form.Label>
+                                <br/>
+                                <Form.Check type="radio" name="gender" value="m" checked={this.state.gender==="m"} onChange={this.handleChange} inline label="M" />
+                                <Form.Check type="radio" name="gender" value="f" checked={this.state.gender==="f"} onChange={this.handleChange} inline label="F" />
+                            </Form.Group>
+
+                            <Form.Group className="mb-3" controlId="formBasicPassword">
+                                <Form.Label>Password</Form.Label>
+                                <Form.Control type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.handleChange} required />
+                            </Form.Group> 
+
+                            <Form.Group className="mb-3" controlId="formBasicPassword">
+                                <Form.Label>Password Confirmation</Form.Label>
+                                <Form.Control type="password" name="password_confirmation" placeholder="Password Confirmation" value={this.state.password_confirmation} onChange={this.handleChange} required />
+                            </Form.Group> 
+
+                            <div class="buttons">
+                                <Button variant="primary" type="submit">
+                                    Sign Up
+                                </Button>
+                                {' '}
+                                <Form.Text className="text-muted">
+                                    Already have an account?
+                                </Form.Text>
+                                {' '}
+                                <Button href="login" variant="dark">
+                                    Log In
+                                </Button>
+                            </div>
+                        </Form>
+                    </div>
+                <style>
+                    {"\
+                    .login-form{\
+                    margin:28px;\
+                    }\
+                    "}
+                    {"\
+                    .buttons{\
+                    margin:18px;\
+                    }\
+                    "}
+                </style>
             </div>
         );
     }

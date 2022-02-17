@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Button, Form } from 'react-bootstrap';
 
 export default class Login extends Component {
 
@@ -61,14 +62,53 @@ export default class Login extends Component {
     render() {
         return (
             <div>
-                <h1>Login</h1>
-                <form onSubmit={this.handleSubmit}>
+                {/* <form onSubmit={this.handleSubmit}>
                     <input type="text" name="user_name" placeholder="User Name" value={this.state.user_name} onChange={this.handleChange} required />
 
                     <input type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.handleChange} required />
 
                     <button type='submit'>Log In</button>
-                </form>
+                </form> */}
+                <div class="login-form">  
+                    <h1>Sign In</h1>
+                    <br/>
+                    <Form onSubmit={this.handleSubmit}>
+                        <Form.Group className="mb-3">
+                            <Form.Label>User Name</Form.Label>
+                            <Form.Control type="text"name="user_name" placeholder="User Name" value={this.state.user_name} onChange={this.handleChange} required />
+                        </Form.Group>
+
+                        <Form.Group className="mb-3" controlId="formBasicPassword">
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.handleChange} required />
+                        </Form.Group> 
+                        <div class="buttons">
+                            <Button variant="primary" type="submit">
+                                Log In
+                            </Button>
+                            {' '}
+                            <Form.Text className="text-muted">
+                                    Don't have an account?
+                            </Form.Text>
+                            {' '}
+                            <Button href="/" variant="dark">
+                                Sign Up
+                            </Button>
+                        </div>
+                    </Form>
+                </div>
+                <style>
+                    {"\
+                    .login-form{\
+                    margin:28px;\
+                    }\
+                    "}
+                    {"\
+                    .buttons{\
+                    margin:18px;\
+                    }\
+                    "}
+                </style>
             </div>
         );
     }
