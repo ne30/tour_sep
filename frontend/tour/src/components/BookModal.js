@@ -81,6 +81,14 @@ export default class BookModal extends Component{
             <div>
                 <Button variant="outline-info" onClick={this.onClickButton}>Book</Button>
                 <Modal isOpen={this.state.openModal} ariaHideApp={false}>
+                    <div class="modal-header" id="modal-header">
+                        <h4 class="modal-title" id="modal-title">
+                            Book { this.props.tour.attributes.tour_code }
+                        </h4>
+                        <Button className="float-end float-bottom" variant="outline-danger" onClick={this.onCloseModal}>
+                            ×
+                        </Button>
+                    </div>
                     <div>
                         <Table striped bordered hover>
                             <thead>
@@ -112,12 +120,10 @@ export default class BookModal extends Component{
                                 </tr>
                             </tbody>
                         </Table>
-                        <div>
-                            <Button variant="outline-primary" onClick={() => this.bookTicketWithCompanion()}>Book With Compnaion</Button>
-                            <Button variant="outline-danger" onClick={() => this.bookTicketWithoutCompanion()}>Book Without Compnaion</Button>
-                        </div>
-                        <div className="justify-content-end" >
-                            <Button variant="outline-danger" onClick={this.onCloseModal}>Close</Button>
+                        <div className="mb-2">
+                            <Button variant="primary" onClick={() => this.bookTicketWithCompanion()}>Book With Compnaion</Button>
+                            {' '}
+                            <Button variant="warning" onClick={() => this.bookTicketWithoutCompanion()}>Book Without Compnaion</Button>
                         </div>
                     </div>
                 </Modal>
