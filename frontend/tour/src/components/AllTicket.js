@@ -19,7 +19,6 @@ export default class AllTicket extends Component{
         const ticket_url = "http://localhost:3001/all_tickets";
         axios.get(ticket_url,{withCredentials: true})
         .then((response) => {
-            // console.log(this.state.user.user_name);
             this.setState({
                 all_tickets: response.data.data,
                 data_loaded: true

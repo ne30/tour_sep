@@ -51,35 +51,6 @@ export default class Registration extends Component {
     render() {
         return (
             <div>
-                {/* <form onSubmit={this.handleSubmit}>
-                    <input type="text" name="user_name" placeholder="User Name" value={this.state.user_name} onChange={this.handleChange} required />
-
-                    <strong>Gender</strong>
-
-                    <label>
-                        <input type="radio"
-                        name="gender"
-                        value="m"
-                        checked={this.state.gender==="m"}
-                        onChange={this.handleChange}
-                        /> M
-                    </label>
-
-                    <label>
-                        <input type="radio"
-                        name="gender"
-                        value="f"
-                        checked={this.state.gender==="f"}
-                        onChange={this.handleChange}
-                        /> F
-                    </label>
-
-                    <input type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.handleChange} required />
-
-                    <input type="password" name="password_confirmation" placeholder="Password Confirmation" value={this.state.password_confirmation} onChange={this.handleChange} required />
-
-                    <button type='submit'>Register</button>
-                </form> */}
                 <div class="login-form">  
                     <h1>Sign Up</h1>
                         <br/>

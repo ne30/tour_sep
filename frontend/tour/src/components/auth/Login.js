@@ -42,7 +42,6 @@ export default class Login extends Component {
                         user: response.data.user,
                         user_loaded: true
                     });
-                    // console.log(this.state.user);
                     this.handleSuccessfulAuth(response.data);
                 }
             }
@@ -62,13 +61,6 @@ export default class Login extends Component {
     render() {
         return (
             <div>
-                {/* <form onSubmit={this.handleSubmit}>
-                    <input type="text" name="user_name" placeholder="User Name" value={this.state.user_name} onChange={this.handleChange} required />
-
-                    <input type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.handleChange} required />
-
-                    <button type='submit'>Log In</button>
-                </form> */}
                 <div class="login-form">  
                     <h1>Sign In</h1>
                     <br/>

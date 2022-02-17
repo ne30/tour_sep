@@ -1,11 +1,8 @@
 import axios from 'axios';
 import React from 'react';
 import { Component } from 'react';
-import { Button, Collapse, Nav, Table } from 'react-bootstrap';
-import Modal from 'react-modal';
-import { Route, Switch } from 'react-router-dom';
+import { Table } from 'react-bootstrap';
 import BookModal from './BookModal';
-import Ticket from './Ticket';
 
 export default class Tour extends Component{
 
@@ -23,10 +20,8 @@ export default class Tour extends Component{
     }
 
     getAllTours(){
-        // console.log(this.props.user_name);
         axios.get("http://localhost:3001/tours/", {withCredentials: true})
         .then((response) => {
-            // console.log(this.props.location.state);
             this.setState({
                 all_tours: response.data.data,
                 data_loaded: true
@@ -34,23 +29,12 @@ export default class Tour extends Component{
             );
 
         });
-        // .catch(error => {
-        //     console.error('Error ', error);
-        // });
     }
 
     componentDidMount(){
         this._isMounted = true;
         this.getAllTours();
-        
     }
-
-    // componentWillUnmount() {
-    //     this._isMounted = false;
-    //     this.setState = (state,callback)=>{
-    //         return;
-    //     };
-    // }
 
     handleUserTicket(){
         this.props.history.push({

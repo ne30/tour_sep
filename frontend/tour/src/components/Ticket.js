@@ -18,12 +18,9 @@ export default class Ticket extends Component{
     }
 
     getUserTickets(){
-        // console.log(this.user_temp);
-        // console.log(this.props.user_name.user_name);
         const ticket_url = "http://localhost:3001/tickets?user_name="+this.props.user_name;
         axios.get(ticket_url,{withCredentials: true})
         .then((response) => {
-            // console.log(this.state.user.user_name);
             this.setState({
                 user_tickets: response.data.data,
                 data_loaded: true
@@ -35,7 +32,6 @@ export default class Ticket extends Component{
     }
 
     cancelUserTicket(ticket_id){
-        // console.log(t);
         axios.post("http://127.0.0.1:3001/cancel",{
             param: ticket_id
         },
@@ -48,10 +44,9 @@ export default class Ticket extends Component{
                     alert("Successfully cancelled the ticket!");
                 }
                 else{
-                    //TODO
+                    //React Bootstrap alert can also be used
                     alert("Something went wrong!");
                 }
-                // window.location.reload();
             }
         );
     }
@@ -60,13 +55,6 @@ export default class Ticket extends Component{
         this._isMounted = true;
         this.getUserTickets();
     }
-
-    // componentWillUnmount() {
-    //     this._isMounted = false;
-    //     this.setState = (state,callback)=>{
-    //         return;
-    //     };
-    // }
 
     getDayOfWeek(date) {
         const dayOfWeek = new Date(date).getDay();    

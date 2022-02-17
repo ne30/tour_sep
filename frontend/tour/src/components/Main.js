@@ -37,7 +37,6 @@ export default class Main extends Component{
             })
             .then((response) => {
                 this.setState({is_admin:response.data.is_admin});
-                // console.log(response.data);
             });
     }
 

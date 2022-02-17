@@ -1,7 +1,5 @@
 import axios from 'axios';
-import { Button } from 'bootstrap';
 import React, { Component } from 'react';
-import Login from './auth/Login';
 import Registration from './auth/Registration';
 
 export default class Home extends Component {
@@ -24,7 +22,6 @@ export default class Home extends Component {
   }
 
   handleSuccessfullRegister(data){
-    // this.props.handleLogin(data);
     this.props.history.push("/login");
   }
 
