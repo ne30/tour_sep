@@ -18,6 +18,7 @@ class LoginController < ApplicationController
                 user: user
             }, status: 200
         else
+            # user_name or password not exists
             render json: { status: :not_logged_in }, status: 401
         end
     end

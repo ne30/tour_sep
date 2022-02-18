@@ -8,7 +8,7 @@ RSpec.describe ToursController, type: :controller do
             expect(response.status).to eq(200)
         end
   
-        it 'It would not create any tour as missing parameter' do
+        it 'It would not create any tour as missing parameter tour_code' do
             post(:create, params: { "tour_code"=>"", "from"=>"Indore", "to"=>"Bhopal", "start_time"=>"18:00", "end_time"=>"10:00", "passenger_limit"=>"-11", "price"=>"1111", "date"=>"2022-02-13"})
             expect(response.status).to eq(422)
         end

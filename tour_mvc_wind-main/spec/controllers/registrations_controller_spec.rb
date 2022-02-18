@@ -9,7 +9,7 @@ RSpec.describe RegistrationsController, type: :controller do
       expect(response.status).to eq(200)
     end
 
-    it 'No User created' do
+    it 'No User created password and password confirmation not similar' do
       subject =  { :user_name => "test_user" , :gender => 'f', :password => "", :password_confirmation => "test"}
       post(:create, params: { :user => subject})
       expect(response.status).to eq(500)

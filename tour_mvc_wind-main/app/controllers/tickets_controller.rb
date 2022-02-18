@@ -5,9 +5,10 @@ class TicketsController < ApplicationController
             user_tickets = user.tickets
             render json: TicketSerializer.new(user_tickets).serialized_json, status: 200
         else
+            # 404 not found
             render json:{
                 status: "unauthorized"
-            }, status: 401
+            }, status: 401 
         end
     end
 
