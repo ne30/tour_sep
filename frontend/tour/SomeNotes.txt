@@ -1,0 +1,18 @@
+DOCKER REACT -> https://www.youtube.com/watch?v=3xDAU5cvi5E
+
+docker-compose up -d // it is used to connect different docker container with each other
+
+Commands => 
+
+docker build -t tour-react-image .
+
+docker image ls 
+
+docker run -d -p 3000<from>:3000<to> --name tour-react-app tour-react-image
+
+docker ps
+
+docker exec -it tour-react-app bash
+
+// remove
+docker rm tour-react-app -f
