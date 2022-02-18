@@ -1,4 +1,5 @@
 DOCKER REACT -> https://www.youtube.com/watch?v=3xDAU5cvi5E
+DOCKER RAILS -> https://www.youtube.com/watch?v=JywMquavEjU
 
 docker-compose up -d // it is used to connect different docker container with each other
 
